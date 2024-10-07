@@ -1,1 +1,7 @@
+# Editors
+.idea
+.vscode
+
+# Python
 .venv
+**__pycache__
