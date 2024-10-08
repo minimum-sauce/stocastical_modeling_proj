@@ -14,20 +14,21 @@ V1 = 5
 V2 = 6
 IM = 7
 
+
 def stoch():
-                  # 0  1  2  3  4  5  6  7
-    m = np.array([[-1, 1, 0, 0, 0, 0, 0, 0], # suseptible -> exposed
-                  [-1, 0, 0, 0, 0, 1, 0, 0], # suseptible -> vacc_1 
-                  [0, -1, 1, 0, 0, 0, 0, 0], # exposed -> infected 
-                  [0, 0, -1, 1, 0, 0, 0, 0], # infected -> Recovered
-                  [0, 0, -1, 0, 1, 0, 0, 0], # infected -> dead
-                  [0, 0, 0, -1, 0, 1, 0, 0], # Recovered -> vacc1
-                  [0, 0, 0, -1, 0, 0, 1, 0], # Recovered -> vacc2
-                  [0, 1, 0, 0, 0, -1, 0, 0], # vacc1 -> exposed
-                  [0, 0, 0, 0, 0, -1, 1, 0], # vacc1 -> vacc2
-                  [0, 0, 0, 0, 0, -1, 0, 1], # vacc1 -> immune
-                  [0, 1, 0, 0, 0, 0, -1, 0], # vacc2 -> exposed
-                  [0, 0, 0, 0, 0, 0, -1 , 1] # vacc2 -> immune
+    # 0  1  2  3  4  5  6  7
+    m = np.array([[-1, 1, 0, 0, 0, 0, 0, 0],  # suseptible -> exposed
+                  [-1, 0, 0, 0, 0, 1, 0, 0],  # suseptible -> vacc_1
+                  [0, -1, 1, 0, 0, 0, 0, 0],  # exposed -> infected
+                  [0, 0, -1, 1, 0, 0, 0, 0],  # infected -> Recovered
+                  [0, 0, -1, 0, 1, 0, 0, 0],  # infected -> dead
+                  [0, 0, 0, -1, 0, 1, 0, 0],  # Recovered -> vacc1
+                  [0, 0, 0, -1, 0, 0, 1, 0],  # Recovered -> vacc2
+                  [0, 1, 0, 0, 0, -1, 0, 0],  # vacc1 -> exposed
+                  [0, 0, 0, 0, 0, -1, 1, 0],  # vacc1 -> vacc2
+                  [0, 0, 0, 0, 0, -1, 0, 1],  # vacc1 -> immune
+                  [0, 1, 0, 0, 0, 0, -1, 0],  # vacc2 -> exposed
+                  [0, 0, 0, 0, 0, 0, -1, 1]  # vacc2 -> immune
                   ])
     return m
 
@@ -48,18 +49,18 @@ def propensities(Y, coeff):
     N = coeff[12]
 
     return np.array([
-        suseptible_exposed * Y[S] * Y[I] / N,   # suseptible -> exposed
-        suseptible_vacc1 * Y[S],                # suseptible -> vacc_1
-        exposed_infected * Y[E],                # exposed -> infected
-        infected_recovered * Y[I],              # infected -> Recovered
-        infected_dead * Y[I],                   # infected -> dead
-        recovered_vacc1 * Y[R],                 # Recovered -> vacc1
-        recovered_vacc2 * Y[R],                 # Recovered -> vacc2
-        vacc1_vacc2 * Y[V1],                    # vacc1 -> vacc2
-        vacc1_exposed * Y[V1],                  # vacc1 -> exposed
-        vacc1_immune * Y[V1],                   # vacc1 -> immune
-        vacc2_exposed * Y[V2],                  # vacc2 -> exposed
-        vacc2_immune * Y[V2],                   # vacc2 -> immune
+        suseptible_exposed * Y[S] * Y[I] / N,  # suseptible -> exposed
+        suseptible_vacc1 * Y[S],  # suseptible -> vacc_1
+        exposed_infected * Y[E],  # exposed -> infected
+        infected_recovered * Y[I],  # infected -> Recovered
+        infected_dead * Y[I],  # infected -> dead
+        recovered_vacc1 * Y[R],  # Recovered -> vacc1
+        recovered_vacc2 * Y[R],  # Recovered -> vacc2
+        vacc1_vacc2 * Y[V1],  # vacc1 -> vacc2
+        vacc1_exposed * Y[V1],  # vacc1 -> exposed
+        vacc1_immune * Y[V1],  # vacc1 -> immune
+        vacc2_exposed * Y[V2],  # vacc2 -> exposed
+        vacc2_immune * Y[V2],  # vacc2 -> immune
     ])
 
 
@@ -128,4 +129,3 @@ plt.xlabel("t")
 plt.ylabel("y")
 plt.legend()
 plt.show()
-
