@@ -48,7 +48,7 @@ plt.plot(sol.t, sol.y[I], label="I(t)")
 plt.plot(sol.t, sol.y[R], label="R(t)")
 
 plt.xlabel("t")
-plt.xlabel("y")
+plt.ylabel("y")
 plt.legend()
 
 
@@ -88,6 +88,6 @@ plt.plot(t, X[:, I], label="I(t)")
 plt.plot(t, X[:, R], label="R(t)")
 
 plt.xlabel("t")
-plt.xlabel("y")
+plt.ylabel("y")
 plt.legend()
 plt.show()
