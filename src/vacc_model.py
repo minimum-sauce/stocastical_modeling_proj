@@ -16,7 +16,7 @@ alpha = 1.0 / incubation
 beta = 0.3
 gamma = 1.0 / 7.0
 micro = 0.05
-vaxx_coeff = 1.0
+vaxx_coeff = 100.0
 t_span = np.array([0, 240])
 
 N = 1000.0
