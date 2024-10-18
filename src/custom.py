@@ -48,7 +48,7 @@ def propensities(Y, coeff):
 
     return np.array([
         suseptible_exposed * Y[S] * Y[I] / N,  # suseptible -> exposed
-        suseptible_vacc1 * math.log10(Y[S]),  # suseptible -> vacc_1
+        suseptible_vacc1,  # suseptible -> vacc_1
         exposed_infected * Y[E],  # exposed -> infected
         infected_recovered * Y[I],  # infected -> Recovered
         infected_dead * Y[I],  # infected -> dead
@@ -63,20 +63,18 @@ def propensities(Y, coeff):
 # ----------------- #
 # propencity coefs  #
 # ----------------- #
+N = 1_000
 incubation = 5.0 
 suseptible_exposed = 0.4
-suseptible_vacc1 = 0.5
+suseptible_vacc1 = N * 0.002
 exposed_infected = 1.0 / incubation
 infected_recovered = 1.0 / 10.0
 infected_dead = 0.1
-vacc1_vacc2 = 1.0
-vacc1_immune = 0.7
-vacc1_exposed = 0.06
+vacc1_vacc2 = 0.5
+vacc1_immune = 0.1
+vacc1_exposed = 0.2
 vacc2_immune = 0.95
-vacc2_exposed = 0.03
-N = 10_000
-# recovered_vacc1 = 2.3 
-# recovered_vacc2 = 1.2
+vacc2_exposed = 0.05
 
 # ----------------- #
 # initial values    #
@@ -105,17 +103,27 @@ coeff = (
 Y0 = (suseptible, exposed, infected, recovered, dead, first_vaccination, second_vaccination)
 t_span = np.array([0, 120])
 
-t, X = SSA(propensities, stoch, Y0, t_span, coeff)
 
-plt.figure(2)
+plt.figure(1)
 
-plt.plot(t, X[:, S], label="S(t)")
-plt.plot(t, X[:, E], label="E(t)")
-plt.plot(t, X[:, I], label="I(t)")
-plt.plot(t, X[:, R], label="R(t)")
-plt.plot(t, X[:, D], label="D(t)")
-plt.plot(t, X[:, V1], label="V1(t)")
-plt.plot(t, X[:, V2], label="V2(t)")
+colors = ['#1f77b4',  # A pleasant blue
+          '#ff7f0e',  # A soft orange
+          '#2ca02c',  # A calm green
+          '#d62728',  # A muted red
+          '#9467bd',  # A subtle purple
+          '#8c564b',  # A gentle brown
+          '#e377c2']  # A light pink
+
+for _ in range(6):
+    t, X = SSA(propensities, stoch, Y0, t_span, coeff)
+
+    plt.plot(t, X[:, S], color=colors[0], label="S(t)" if _ == 0 else "")
+    plt.plot(t, X[:, E], color=colors[1], label="E(t)" if _ == 0 else "")
+    plt.plot(t, X[:, I], color=colors[2], label="I(t)" if _ == 0 else "")
+    plt.plot(t, X[:, R], color=colors[3], label="R(t)" if _ == 0 else "")
+    plt.plot(t, X[:, D], color=colors[4], label="D(t)" if _ == 0 else "")
+    plt.plot(t, X[:, V1], color=colors[5], label="V1(t)" if _ == 0 else "")
+    plt.plot(t, X[:, V2], color=colors[6], label="V2(t)" if _ == 0 else "")
 
 plt.xlabel("t")
 plt.ylabel("y")

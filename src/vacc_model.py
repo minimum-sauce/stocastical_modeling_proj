@@ -11,15 +11,15 @@ R = 3
 D = 4
 V = 5
 
+N = 1000.0
 incubation = 5.0
 alpha = 1.0 / incubation
 beta = 0.3
 gamma = 1.0 / 7.0
-micro = 0.05
-vaxx_coeff = 100.0
-t_span = np.array([0, 240])
+micro = 0.01
+vaxx_coeff = np.floor(N*0.001)
+t_span = np.array([0, 120])
 
-N = 1000.0
 infected = 0.0
 exposed = 7.0
 recovered = 0.0
@@ -64,12 +64,24 @@ t, X = SSA(propensities, stoch, X0, t_span, coeff)
 
 plt.figure(2)
 
-plt.plot(t, X[:, S], label="S(t)")
-plt.plot(t, X[:, E], label="E(t)")
-plt.plot(t, X[:, I], label="I(t)")
-plt.plot(t, X[:, R], label="R(t)")
-plt.plot(t, X[:, D], label="D(t)")
-plt.plot(t, X[:, V], label="V(t)")
+colors = ['#1f77b4',  # A pleasant blue
+          '#ff7f0e',  # A soft orange
+          '#2ca02c',  # A calm green
+          '#d62728',  # A muted red
+          '#9467bd',  # A subtle purple
+          '#8c564b',  # A gentle brown
+          '#e377c2']  # A light pink
+
+for _ in range(6):
+    t, X = SSA(propensities, stoch, X0, t_span, coeff)
+
+    plt.plot(t, X[:, S], color=colors[0], label="S(t)" if _ == 0 else "")
+    plt.plot(t, X[:, E], color=colors[1], label="E(t)" if _ == 0 else "")
+    plt.plot(t, X[:, I], color=colors[2], label="I(t)" if _ == 0 else "")
+    plt.plot(t, X[:, R], color=colors[3], label="R(t)" if _ == 0 else "")
+    plt.plot(t, X[:, D], color=colors[4], label="D(t)" if _ == 0 else "")
+    plt.plot(t, X[:, V], color=colors[5], label="V(t)" if _ == 0 else "")
+    #plt.plot(t, X[:, V2], color=colors[6], label="V2(t)" if _ == 0 else "")
 
 plt.xlabel("t")
 plt.ylabel("y")
