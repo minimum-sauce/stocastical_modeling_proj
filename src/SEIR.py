@@ -10,14 +10,14 @@ E = 1
 I = 2
 R = 3
 
-incubation = 1.0
+incubation = 10.0
 alpha = 1.0 / incubation
 beta = 0.3
 gamma = 1 / 7
-t_span = np.array([0, 120])
+t_span = np.array([0, 220])
 N = 1000
-suseptable = 5
-y0 = np.array([N - suseptable, 0, suseptable, 0])
+infected = 5
+y0 = np.array([N - infected, 0, infected, 0])
 
 
 def stoch():

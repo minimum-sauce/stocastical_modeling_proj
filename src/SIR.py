@@ -36,8 +36,8 @@ beta = 0.3
 gamma = 1 / 7
 t_span = np.array([0, 120])
 N = 1000
-suseptable = 5
-y0 = np.array([N - suseptable, suseptable, 0])
+infected = 5
+y0 = np.array([N - infected, infected, 0])
 
 sol = solve_ivp(ode, t_span, y0, args=(gamma, beta, N))
 
@@ -55,7 +55,6 @@ plt.legend()
 # ----------------------------------- #
 # Stochastical modeling
 # ----------------------------------- #
-
 
 def stoch():
     m = np.array([[-1, 1, 0],

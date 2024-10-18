@@ -14,11 +14,10 @@ R = 3
 D = 4
 V1 = 5
 V2 = 6
-IM = 7
 
 
 def stoch():
-                  # 0  1   2  3  4  5  6
+                  # 0  1   2   3   4   5    6
     m = np.array([[-1,+1,  0,  0,  0,  0,  0],  # suseptible -> exposed
                   [-1, 0,  0,  0,  0, +1,  0],  # suseptible -> vacc_1
                   [0, -1, +1,  0,  0,  0,  0],  # exposed -> infected
@@ -52,8 +51,8 @@ def propensities(Y, coeff):
         exposed_infected * Y[E],  # exposed -> infected
         infected_recovered * Y[I],  # infected -> Recovered
         infected_dead * Y[I],  # infected -> dead
-        vacc1_vacc2 * Y[V1],  # vacc1 -> vacc2
         vacc1_exposed * Y[V1],  # vacc1 -> exposed
+        vacc1_vacc2 * Y[V1],  # vacc1 -> vacc2
         vacc1_immune * Y[V1],  # vacc1 -> immune
         vacc2_exposed * Y[V2],  # vacc2 -> exposed
         vacc2_immune * Y[V2],  # vacc2 -> recovered
@@ -64,23 +63,28 @@ def propensities(Y, coeff):
 # propencity coefs  #
 # ----------------- #
 N = 1_000
-incubation = 5.0 
-suseptible_exposed = 0.4
+incubation = 5
+suseptible_exposed = 0.3
 suseptible_vacc1 = N * 0.002
 exposed_infected = 1.0 / incubation
-infected_recovered = 1.0 / 10.0
-infected_dead = 0.1
-vacc1_vacc2 = 0.5
-vacc1_immune = 0.1
-vacc1_exposed = 0.2
+infected_recovered = 1.0 / 7.0
+infected_dead = 0.01
+vacc1_vacc2 = 0.90
+vacc1_exposed = 0.09
+vacc1_immune = 0.01
 vacc2_immune = 0.95
 vacc2_exposed = 0.05
+# vacc1_vacc2 = 0.49
+# vacc1_exposed = 0.5
+# vacc1_immune = 0.01
+# vacc2_immune = 0.5
+# vacc2_exposed = 0.5
 
 # ----------------- #
 # initial values    #
 # ----------------- #
 recovered = 0
-exposed = 0
+exposed = 5
 dead = 0
 infected = 0
 first_vaccination = 0
@@ -114,7 +118,7 @@ colors = ['#1f77b4',  # A pleasant blue
           '#8c564b',  # A gentle brown
           '#e377c2']  # A light pink
 
-for _ in range(6):
+for _ in range(20):
     t, X = SSA(propensities, stoch, Y0, t_span, coeff)
 
     plt.plot(t, X[:, S], color=colors[0], label="S(t)" if _ == 0 else "")

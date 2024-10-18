@@ -11,16 +11,16 @@ I = 2
 R = 3
 D = 4
 
-incubation = 10.0
+incubation = 5.0
 alpha = 1.0 / incubation
-beta = 0.3
+beta = 0.5
 gamma = 1.0 / 7.0
-micro = 0.05
+micro = 0.08
 t_span = np.array([0, 220])
 
 N = 1000.0
 infected = 0.0
-exposed = 7.0
+exposed = 5.0
 recovered = 0.0
 dead = 0.0
 suseptable = N - infected - exposed - recovered - dead
